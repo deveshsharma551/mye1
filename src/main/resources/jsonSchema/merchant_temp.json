@@ -1,0 +1,83 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "definitions": {},
+    "id": "http://example.com/example.json",
+    "properties": {
+        "merAssetList": {
+            "id": "/properties/merAssetList",
+            "items": {
+                "id": "/properties/merAssetList/items",
+                "properties": {
+                    "Address": {
+                        "id": "/properties/merAssetList/items/properties/Address",
+                        "type": "string"
+                    },
+                    "assetName": {
+                        "id": "/properties/merAssetList/items/properties/assetName",
+                        "type": "string"
+                    },
+                    "assetType": {
+                        "id": "/properties/merAssetList/items/properties/assetType",
+                        "type": "string"
+                    },
+                    "assetValue": {
+                        "id": "/properties/merAssetList/items/properties/assetValue",
+                        "type": "string"
+                    },
+                    "city": {
+                        "id": "/properties/merAssetList/items/properties/city",
+                        "type": "string"
+                    },
+                    "country": {
+                        "id": "/properties/merAssetList/items/properties/country",
+                        "type": "string"
+                    },
+                    "location": {
+                        "id": "/properties/merAssetList/items/properties/location",
+                        "type": "string"
+                    },
+                    "state": {
+                        "id": "/properties/merAssetList/items/properties/state",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "city",
+                    "assetType",
+                    "country",
+                    "assetValue",
+                    "state",
+                    "location",
+                    "Address",
+                    "assetName"
+                ],
+                "type": "object"
+            },
+            "type": "array"
+        },
+        "merEmailId": {
+            "id": "/properties/merEmailId",
+            "type": "string"
+        },
+        "merLastName": {
+            "id": "/properties/merLastName",
+            "type": "string"
+        },
+        "merMobileNumber": {
+            "id": "/properties/merMobileNumber",
+            "type": "string"
+        },
+        "merfirstName": {
+            "id": "/properties/merfirstName",
+            "type": "string"
+        }
+    },
+    "required": [
+        "merAssetList",
+        "merEmailId",
+        "merMobileNumber",
+        "merLastName",
+        "merfirstName"
+    ],
+    "type": "object"
+}
