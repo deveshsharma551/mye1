@@ -11,8 +11,9 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-@PropertySource("classpath:Database.properties")
-@PropertySource("classpath:HandlerConfiguration.properties")
+@PropertySource(
+{"classpath:Database.properties",
+"classpath:HandlerConfiguration.properties"})
 public class PropertyUtils {
 
 	@Autowired

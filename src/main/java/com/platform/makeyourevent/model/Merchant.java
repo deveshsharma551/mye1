@@ -2,17 +2,24 @@ package com.platform.makeyourevent.model;
 
 import java.util.List;
 
-//import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 
-//@Document(collection="db_merchants" )
-public class Merchant {
+@Document(collection="db_merchants" )
+public class Merchant extends ParentModel {
 	
 	private String merFirstName;
 	private String merLastName;
 	private String merMobileNumber;
 	private String merEmailId;
 	private List<EventAsset>  merAssetList;
+	private ResourceLink selfLink;
+	public ResourceLink getSelfLink() {
+		return selfLink;
+	}
+	public void setSelfLink(ResourceLink selfLink) {
+		this.selfLink = selfLink;
+	}
 	public String getMerFirstName() {
 		return merFirstName;
 	}

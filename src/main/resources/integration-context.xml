@@ -1,0 +1,33 @@
+<beans xmlns = "http://www.springframework.org/schema/beans"
+   xmlns:context = "http://www.springframework.org/schema/context"
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:int-ftp="http://www.springframework.org/schema/integration/ftp"
+   xsi:schemaLocation = "http://www.springframework.org/schema/beans     
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+   http://www.springframework.org/schema/context 
+   http://www.springframework.org/schema/context/spring-context-3.0.xsd
+   http://www.springframework.org/schema/integration/ftp
+   http://www.springframework.org/schema/integration/ftp/spring-integration-ftp.xsd">
+    
+    
+    <bean id="ftpClientFactry"
+    class="org.springframework.integration.ftp.session.DefaultFtpSessionFactory">
+    <property name="host" value="localhost"/>
+    <property name="port" value="22"/>
+    <property name="username" value="kermit"/>
+    <property name="password" value="frog"/>
+    <property name="clientMode" value="0"/>
+    <property name="fileType" value="2"/>
+    <property name="bufferSize" value="100000"/>
+</bean>
+
+
+    <int-ftp:inbound-channel-adapter
+    channel="ftpChannel"
+    session-factory="ftpSessionFactory"
+    filter="customFilter"
+    local-directory="file:/my_transfers"
+    remote-directory="some/remote/path"></int-ftp:inbound-channel-adapter>
+    
+    
+  </beans>

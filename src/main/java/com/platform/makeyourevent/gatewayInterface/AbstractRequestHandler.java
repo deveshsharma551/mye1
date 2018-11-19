@@ -30,11 +30,15 @@ import com.github.fge.jsonschema.main.JsonSchema;
 import com.github.fge.jsonschema.main.JsonSchemaFactory;
 import com.github.fge.jsonschema.main.JsonValidator;
 import com.google.gson.Gson;
+import com.platform.makeyourevent.dataaccessService.DataAccessService;
 import com.platform.makeyourevent.model.Merchant;
 import com.platform.makeyourevent.propertyHandler.PropertyUtils;
 
 
 public abstract class AbstractRequestHandler implements ServiceHandler {
+	
+	@Autowired
+	public DataAccessService dataAccessService;
 	
 	
 	@Autowired
@@ -55,8 +59,39 @@ public abstract class AbstractRequestHandler implements ServiceHandler {
 		{
 			return handlePost(inputs);	
 		}
+		
+ 		if(inputs.get("methodName").equals("GET"))
+		{
+			return handleGET(inputs);	
+		}
+		if(inputs.get("methodName").equals("PUT"))
+		{
+			return handlePUT(inputs);	
+		}
+		if(inputs.get("methodName").equals("DELETE"))
+		{
+			return handleDELETE(inputs);	
+		}
 		return null;
 		
+	}
+
+
+	public ResponseEntity handleDELETE(Map<String, Object> inputs) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public ResponseEntity handlePUT(Map<String, Object> inputs) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public ResponseEntity handleGET(Map<String, Object> inputs) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 
@@ -73,7 +108,7 @@ public abstract class AbstractRequestHandler implements ServiceHandler {
 	public Object schemaValidate(Type type, Merchant merchant) throws ProcessingException, JsonProcessingException, IOException {
 		// TODO Auto-generated method stub
 		try {
-			Scanner scanner = new Scanner(new File("C:/STSPaymentGateWayWorkspace/MYEAPI/src/main/resources/jsonSchema/merchant_temp.json"), "UTF-8");
+			Scanner scanner = new Scanner(new File("C:/workspace2/mye1/src/main/resources/jsonSchema/merchant_temp.json"), "UTF-8");
 			String schemaText = scanner.useDelimiter("//A").next();
 			scanner.close();
 			Gson gson = new Gson();
@@ -128,4 +163,5 @@ public abstract class AbstractRequestHandler implements ServiceHandler {
 		
 		return errorReportJson;
 	}
+	
 }

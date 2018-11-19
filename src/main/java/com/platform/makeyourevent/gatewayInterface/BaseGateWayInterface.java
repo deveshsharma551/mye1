@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.platform.makeyourevent.handleHandlerConfiguration.HandleAllHandlerConfiguration;
 import com.platform.makeyourevent.propertyHandler.PropertyUtils;
 
 public class BaseGateWayInterface {
@@ -15,10 +16,22 @@ public class BaseGateWayInterface {
 	@Autowired
 	private PropertyUtils propertyUtils;
 	
+	@Autowired
+	private HandleAllHandlerConfiguration handleAllConfiguration;
+	
 	
 	public String handlerTypeResolver(String uriPattern)
 	{
+	  if(propertyUtils.getStringPropertyValue(uriPattern)!=null)
+	 {
 	   return propertyUtils.getStringPropertyValue(uriPattern);	 
+	 }
+	  else
+	  {
+		  return handleAllConfiguration.handlerTypeResolver(uriPattern);
+	  }
+	  
+	  
 	}
 
 	
@@ -35,15 +48,18 @@ public class BaseGateWayInterface {
 	public Map<String,String> getPathParams(String path)
 	{
 		Map<String,String> pathParameters = new HashMap<String,String>();
+		String interfacePath   = handleAllConfiguration.getTheMatchingPath(path);
 	   String[] pathSplitter = path.split("/");
-	   for(int i=0;i<=2;i++)
+	   String[] interfacePathSplitter = interfacePath.split("/");
+	   
+	   for(int i=0;i<pathSplitter.length;i++)
 	   {
-		   if(pathSplitter[i].contains("{")   && pathSplitter[i].contains("}"))
+		   if(!(pathSplitter[i].equals(interfacePathSplitter[i])))
 		   {
-                pathParameters.put("id",pathSplitter[i].substring(pathSplitter[i].indexOf("{")+1, pathSplitter[i].indexOf("}")));		   
+                pathParameters.put("id",pathSplitter[i]);		   
 		   }
 	   }
-		 return pathParameters;  
+		 return pathParameters;
 	}
 	
 	public Map<String,Object> prepareParams(Object queryParams, Object pathParam, String postData, String method)

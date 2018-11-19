@@ -1,8 +1,8 @@
 package com.platform.makeyourevent.model;
 
-//import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-//@Document(collection="db_assets")
+@Document(collection="db_assets")
 public class EventAsset {
 	
 	private String assetName;
