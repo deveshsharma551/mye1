@@ -7,26 +7,31 @@ import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.guava.GuavaCacheManager;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+
 
 @SpringBootApplication
 @EnableCaching
-/*@EnableWebSecurity
-@EnableGlobalMethodSecurity(
+@EnableWebSecurity
+/*@EnableGlobalMethodSecurity(
 		  prePostEnabled = true, 
 		  securedEnabled = true, 
 		  jsr250Enabled = true)*/
-public class RunConfigurationApp 
-//extends WebSecurityConfigurerAdapter
+public class RunConfigurationApp extends WebSecurityConfigurerAdapter
 {
 
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(RunConfigurationApp.class, args);
 	}
+	
+	/*@Autowired
+    private CustomAuthenticationProvider authProvider;*/
 	
 	@Bean
 	public CacheManager cacheManager()
@@ -35,18 +40,43 @@ public class RunConfigurationApp
 		return cacheManager;
 	}
 	
-	/*protected void configure(HttpSecurity http) throws Exception
-	{
-		http.authorizeRequests()
-		.antMatchers("/oauth/token").permitAll().and().httpBasic();
-	}
+	 @Override
+	    protected void configure(HttpSecurity http) throws Exception {
+	     http
+	        .authorizeRequests()
+	            .antMatchers("/rest/hello").hasRole("USER").
+	            and()
+	          //  .addFilterBefore(myeFilter(),UsernamePasswordAuthenticationFilter.class)
+	            .httpBasic();
+	            http.csrf().disable();
+	    }
 	
-	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception
-	{
-		auth.inMemoryAuthentication().withUser("devesh").password("password").roles("USER");
-	}*/
-
+	 @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication().withUser("user").password("password").roles("USER").and().withUser("admin")
+                .password("password").roles("ADMIN");
+	 }
+	 
+	 
+	 @Bean
+	 public MyeFilter myeFilter() {
+		 return new MyeFilter();
+	 }
+	 
+  /* @Override
+	protected void configure(
+	      AuthenticationManagerBuilder auth) throws Exception {
+	  
+	        auth.authenticationProvider(authProvider);
+	    }*/
+	 
+	 
+	 
+	/* @Override
+	    @Bean
+	    public AuthenticationManager authenticationManagerBean() throws Exception {
+	        return super.authenticationManagerBean();
+	    }*/
 	
 	
 	

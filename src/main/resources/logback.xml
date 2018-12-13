@@ -1,5 +1,5 @@
 <configuration>
- <property file="C:/workspace2/mye1/config/local/logback.properties" scope="context"/>
+ <property file="D:/workspace/mye1/config/local/logback.properties" scope="context"/>
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
     encoders are assigned the type
          ch.qos.logback.classic.encoder.PatternLayoutEncoder by default
@@ -8,5 +8,5 @@
     </encoder> 
   </appender> 
 
-  <include file="C:/workspace2/mye1/config/local/logging/logging.xml"/> 
+  <include file="D:/workspace/mye1/config/local/logging/logging.xml"/> 
 </configuration> 
