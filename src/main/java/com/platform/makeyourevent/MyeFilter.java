@@ -1,4 +1,4 @@
-package com.platform.makeyourevent;
+/*package com.platform.makeyourevent;
 
 import java.io.IOException;
 import java.security.Principal;
@@ -38,3 +38,4 @@ public class MyeFilter implements Filter{
 	}
 
 }
+*/

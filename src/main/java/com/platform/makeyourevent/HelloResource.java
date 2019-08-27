@@ -1,5 +1,7 @@
 package com.platform.makeyourevent;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,6 +15,9 @@ import java.util.Collection;
 @RestController
 @RequestMapping("/rest/hello")
 public class HelloResource {
+	
+	@Value("${spring.message}")
+	private String message;
 
 
     @GetMapping("/principal")
@@ -21,13 +26,13 @@ public class HelloResource {
         return principal;
     }
     
-    @GetMapping
+    @GetMapping(produces=MediaType.APPLICATION_JSON_VALUE)
     public String hello(@AuthenticationPrincipal final UserDetails userDetails) {
     	System.out.println("at rest end point");
-    	String username = userDetails.getUsername();
-    	Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
-    	authorities.stream().forEach(System.out::println);
-        return "Hello World";
+    	//String username = userDetails.getUsername();
+    	//Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
+    	//authorities.stream().forEach(System.out::println);
+        return message;
     }
 
 }

@@ -14,17 +14,24 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.platform.makeyourevent.dataaccessService.CustomUserDetailService;
+import com.platform.makeyourevent.model.CustomUserDetail;
+
 
 
 @SpringBootApplication
 @EnableCaching
-@EnableWebSecurity
+//@EnableWebSecurity
 /*@EnableGlobalMethodSecurity(
 		  prePostEnabled = true, 
 		  securedEnabled = true, 
 		  jsr250Enabled = true)*/
-public class RunConfigurationApp extends WebSecurityConfigurerAdapter
+public class RunConfigurationApp 
+//extends WebSecurityConfigurerAdapter
 {
+	
+	@Autowired
+	private CustomUserDetailService userDetails;
 
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(RunConfigurationApp.class, args);
@@ -40,28 +47,30 @@ public class RunConfigurationApp extends WebSecurityConfigurerAdapter
 		return cacheManager;
 	}
 	
-	 @Override
+	 /*@Override
 	    protected void configure(HttpSecurity http) throws Exception {
 	     http
 	        .authorizeRequests()
-	            .antMatchers("/rest/hello").hasRole("USER").
-	            and()
+	           // .antMatchers("/rest/hello").hasRole("USER").
+	            .antMatchers("/rest/hello").authenticated().
+	            and().formLogin().permitAll();
 	          //  .addFilterBefore(myeFilter(),UsernamePasswordAuthenticationFilter.class)
-	            .httpBasic();
+	          //  .httpBasic();
 	            http.csrf().disable();
 	    }
 	
 	 @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("user").password("password").roles("USER").and().withUser("admin")
-                .password("password").roles("ADMIN");
-	 }
+      ///  auth.inMemoryAuthentication().withUser("user").password("password").roles("USER").and().withUser("admin")
+       //       .password("password").roles("ADMIN");
+		 auth.userDetailsService(userDetails);
+	 }*/
 	 
 	 
-	 @Bean
+	 /*@Bean
 	 public MyeFilter myeFilter() {
 		 return new MyeFilter();
-	 }
+	 }*/
 	 
   /* @Override
 	protected void configure(

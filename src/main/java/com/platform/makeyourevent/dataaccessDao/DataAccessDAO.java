@@ -13,4 +13,5 @@ public interface DataAccessDAO {
 	  
 	  public <T>  T removeResources(Class<T> clss,Map<String,Object> filter);
 
+	  public <T>  T loadResource(Class<T> clss,Map<String,Object> filter);
 }

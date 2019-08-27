@@ -24,6 +24,11 @@ public class DataAccessServiceImpl implements DataAccessService{
 		return dataAccessDao.loadResources(clss, filter);
 	}
 
+	public <T> T loadResource(Class<T> clss, Map<String, Object> filter) {
+		// TODO Auto-generated method stub
+		return dataAccessDao.loadResource(clss, filter);
+	}
+	
 	public <T> T updateResources(Class<T> clss, Map<String, Object> filter) {
 		// TODO Auto-generated method stub
 		return dataAccessDao.updateResources(clss,filter);

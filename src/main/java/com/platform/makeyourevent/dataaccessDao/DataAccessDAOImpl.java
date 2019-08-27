@@ -35,11 +35,22 @@ public class DataAccessDAOImpl implements DataAccessDAO{
 	@Cacheable(value="Mongo-cache", key="#p0")
 	public <T> List<T> loadResources(Class<T> clss, Map<String, Object> filter) {
 		// TODO Auto-generated method stub
+		if(filter!=null) {
 		 Query q = new Query();
 		 for(String key : filter.keySet()){
 		 q.addCriteria(Criteria.where(key).is(filter.get(key)));}
+		}
 		//return mongoTemp.findOne(q,clss);
 		 return mongoTemp.findAll(clss);
+	}
+	
+	public <T> T loadResource(Class<T> clss, Map<String, Object> filter) {
+		// TODO Auto-generated method stub
+		 Query q = new Query();
+		 for(String key : filter.keySet()){
+		 q.addCriteria(Criteria.where(key).is(filter.get(key)));}
+		return mongoTemp.findOne(q,clss);
+		// return mongoTemp.findAll(clss);
 	}
 
 	@CachePut(value="Mongo-cache", key="#Mongo-cache.p0")
